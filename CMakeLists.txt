@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.20)
 project(run)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 #CMake specific
 enable_language(ASM)
 
@@ -55,6 +57,27 @@ else()
     message(STATUS "STM32_Programmer_CLI was not found, program target is inaccessible")
 endif()
 
+add_custom_target(cppcheck-check COMMAND ${CPPCHECK} 
+        --check-level=exhaustive
+        --checkers-report=${CMAKE_BINARY_DIR}/cppcheck-checks-report.log
+        --cppcheck-build-dir=${CPPCHECK_BUILD_DIR}
+        --enable=all
+        --error-exitcode=1
+        --inconclusive
+        --language=c
+        --platform=native
+        --project=${CMAKE_BINARY_DIR}/compile_commands.json
+        --suppress=checkersReport
+        --suppress=*:*/Core/*
+        --suppress=*:*/Drivers/*
+        --suppress=unusedFunction
+        -D__GNUC__
+        -i ${CMAKE_BINARY_DIR}
+        -j ${N_PROC}
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        USES_TERMINAL
+        COMMENT "Checking code with Cppcheck"
+    )
 
 # #############################################################################################################################
 # # file:  CMakeLists.txt

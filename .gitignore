@@ -5,3 +5,4 @@ build
 .mxproject
 .project
 clean_stm32_template Debug.launch
+.vscode

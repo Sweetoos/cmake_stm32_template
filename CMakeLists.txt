@@ -32,14 +32,12 @@ add_subdirectory(Drivers)
 
 set(PROJECT_SOURCES
     Core/Startup/startup_stm32f446retx.s
-    Core/Src/gpio.c
-    Core/Src/main.c  
-    Core/Src/stm32f4xx_hal_msp.c  
-    Core/Src/stm32f4xx_it.c  
-    Core/Src/syscalls.c  
-    Core/Src/sysmem.c  
-    Core/Src/system_stm32f4xx.c  
-    Core/Src/usart.c
+    Core/Src/main.c
+    Core/Src/stm32f4xx_hal_msp.c
+    Core/Src/stm32f4xx_it.c
+    Core/Src/syscalls.c
+    Core/Src/sysmem.c
+    Core/Src/system_stm32f4xx.c
 )
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
